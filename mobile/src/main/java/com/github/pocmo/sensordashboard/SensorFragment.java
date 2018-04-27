@@ -206,7 +206,7 @@ public class SensorFragment extends Fragment {
             mRealm.beginTransaction();
             DataEntry entry = mRealm.createObject(DataEntry.class);
             entry.setAndroidDevice(mAndroidId);
-            entry.setTimestamp(event.getDataPoint().getTimestamp());
+            entry.setTimestamp(System.currentTimeMillis());
             if (event.getDataPoint().getValues().length > 0) {
                 entry.setX(event.getDataPoint().getValues()[0]);
             } else {
