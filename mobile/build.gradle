@@ -9,6 +9,8 @@ android {
         targetSdkVersion 22
         versionCode 5
         versionName "1.1.1"
+
+        android.defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
     }
     buildTypes {
         release {
