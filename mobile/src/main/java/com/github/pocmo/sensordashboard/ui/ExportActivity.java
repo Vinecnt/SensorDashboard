@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -186,6 +188,12 @@ public class ExportActivity extends AppCompatActivity {
                 sb.append(" ,");
                 sb.append(String.valueOf(result.get(i).getTimestamp()));
                 sb.append(" ,");
+
+                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                cal.setTimeInMillis(result.get(i).getTimestamp());
+                sb.append(DateFormat.format("yyyy-MM-dd'T'hh:mm:ss.SS a",cal ).toString());
+                sb.append(" ,");
+
                 sb.append(String.valueOf(result.get(i).getX()));
                 sb.append(" ,");
                 sb.append(String.valueOf(result.get(i).getY()));
@@ -222,7 +230,7 @@ public class ExportActivity extends AppCompatActivity {
             emailIntent.setType("*/*");
 
             emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                    "SensorDashboard data export");
+                    "SensorDashboard SENSOR data export");
             emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(logfile));
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 
@@ -274,7 +282,10 @@ public class ExportActivity extends AppCompatActivity {
                     }
                 });
                 ++i;
-                bw.write(tag.getTagName() + ", " + tag.getTimestamp() + "\n");
+                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                cal.setTimeInMillis(tag.getTimestamp());
+                String time_readable = (DateFormat.format("yyyy-MM-dd'T'hh:mm:ss.SS a",cal ).toString());
+                bw.write(tag.getTagName() + ", " + tag.getTimestamp() + ", " + time_readable + "\n");
             }
             bw.flush();
             bw.close();
@@ -297,7 +308,7 @@ public class ExportActivity extends AppCompatActivity {
             emailIntent.setType("*/*");
 
             emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                    "SensorDashboard data export");
+                    "SensorDashboard TAG ata export");
             emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(logfile));
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 
