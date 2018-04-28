@@ -262,7 +262,7 @@ public class SensorService extends Service implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        client.sendSensorData(event.sensor.getType(), event.accuracy, event.timestamp, event.values);
+        client.sendSensorData(event.sensor.getType(), event.accuracy, System.currentTimeMillis(), event.values);
     }
 
 

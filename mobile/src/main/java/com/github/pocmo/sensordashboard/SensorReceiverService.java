@@ -53,7 +53,6 @@ public class SensorReceiverService extends WearableListenerService {
                 DataItem dataItem = dataEvent.getDataItem();
                 Uri uri = dataItem.getUri();
                 String path = uri.getPath();
-
                 if (path.startsWith("/sensors/")) {
                     unpackSensorData(
                         Integer.parseInt(uri.getLastPathSegment()),
